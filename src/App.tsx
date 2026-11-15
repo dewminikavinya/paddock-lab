@@ -2,6 +2,7 @@ import React from 'react';
 import { AICoaching } from './AICoaching';
 import { TelemetrySimulator } from './telemetry-simulator';
 import { ContactSection } from './ContactSection';
+import { Footer } from './footer';
 
 export default function App() {
   return (
@@ -9,6 +10,7 @@ export default function App() {
       <AICoaching />
       <TelemetrySimulator />
       <ContactSection/>
+      <Footer/>
     </main>
   );
 }
