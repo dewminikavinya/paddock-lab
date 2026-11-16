@@ -5,8 +5,8 @@ kart viewer directly with `<ModelViewer />`.
 
 ## Reusing the model viewer
 
-```jsx
-import ModelViewer from './components/ModelViewer.jsx'
+```tsx
+import ModelViewer from './components/ModelViewer'
 
 <ModelViewer src="/models/model.glb" alt="Interactive Electro Kart chassis" />
 ```
@@ -26,7 +26,11 @@ separate texture folder. Loading failures display an inline message.
 Import the component into the space reserved for the kart when the page is ready.
 The component contains only the 3D viewport and loading/error feedback.
 
-Checks: `npm run lint` and `npm run build`.
+This is a React + TypeScript project. Application components live in `.tsx`
+files, with strict type checking configured in `tsconfig.app.json`.
+
+Checks: `npm run typecheck`, `npm run lint`, and `npm run build`.
+The build runs TypeScript checks before generating the production bundle.
 
 ## Vite template notes
 
@@ -40,7 +44,3 @@ Currently, two official plugins are available:
 ## React Compiler
 
 The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

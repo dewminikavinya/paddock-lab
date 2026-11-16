@@ -1,23 +1,34 @@
 import { useEffect, useRef, useState } from 'react'
+import type { ModelViewerElement } from '@google/model-viewer'
 import '@google/model-viewer'
 import './ModelViewer.css'
 
+export interface ModelViewerProps {
+  src?: string
+  alt?: string
+}
+
+type ViewerStatus = 'loading' | 'loaded' | 'error'
+
 // Reset loading feedback whenever the source changes.
-export default function ModelViewer({ src = '/models/model.glb', alt = 'Interactive 3D kart model' }) {
+export default function ModelViewer({ src = '/models/model.glb', alt = 'Interactive 3D kart model' }: ModelViewerProps) {
   return <Viewer key={src} src={src} alt={alt} />
 }
 
-function Viewer({ src, alt }) {
-  const [status, setStatus] = useState('loading')
+function Viewer({ src, alt }: Required<ModelViewerProps>) {
+  const [status, setStatus] = useState<ViewerStatus>('loading')
   const [isRotating, setIsRotating] = useState(true)
-  const viewerRef = useRef(null)
+  const viewerRef = useRef<ModelViewerElement>(null)
 
   useEffect(() => {
-    viewerRef.current.autoRotate = isRotating
+    if (viewerRef.current) {
+      viewerRef.current.autoRotate = isRotating
+    }
   }, [isRotating])
 
   useEffect(() => {
     const viewer = viewerRef.current
+    if (!viewer) return
     const onLoad = () => setStatus('loaded')
     const onError = () => setStatus('error')
     viewer.addEventListener('load', onLoad)
