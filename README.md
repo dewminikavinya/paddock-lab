@@ -36,8 +36,18 @@ telemetry simulator, team, contact, and footer targets. On smaller screens,
 the menu button reveals the same navigation. Anchor targets account for the
 fixed navbar.
 
+## Interactive 3D model
+
+The Hero uses `@google/model-viewer` and the self-contained local asset at
+`public/models/model.glb`. Drag to rotate, zoom, or use the toolbar to
+pause/resume automatic rotation. Automatic rotation starts paused for users
+who prefer reduced motion. Loading and failure feedback appear in the viewer.
+
+The viewer is loaded as a separate code chunk. Its WebGL engine is relatively
+large (about 291 kB gzipped), and the model is about 5.4 MB. Model rendering
+requires browser WebGL support.
+
 ## Demo limitations
 
-Telemetry and AI comparisons use simulated/sample data. The kart illustration
-is a static concept, not an interactive 3D model. The contact form is a local
-demo and does not send messages to a server.
+Telemetry and AI comparisons use simulated/sample data. The contact form is a
+local demo and does not send messages to a server.

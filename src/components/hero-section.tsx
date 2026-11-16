@@ -1,6 +1,8 @@
 import { ArrowRight, Sparkles, Compass } from "lucide-react";
-import { HeroKart3D } from "./heroKart3D";
+import { lazy, Suspense } from "react";
 import "./hero.css";
+
+const ModelViewer = lazy(() => import("./ModelViewer"));
 
 interface HeroSectionProps {
   onExploreProduct: () => void;
@@ -93,12 +95,14 @@ export function HeroSection({
 
         {/* Interactive kart */}
         <div className="hero-kart">
-          <HeroKart3D />
+          <Suspense fallback={<div className="model-loading" role="status">Loading 3D kart viewer…</div>}>
+            <ModelViewer />
+          </Suspense>
 
           <div className="hero-kart-caption">
             <p>
               <span className="hero-dot" aria-hidden="true" />
-              Kart chassis concept illustration
+              Interactive kart model · drag to rotate, scroll to zoom
             </p>
 
             <span className="hero-kart-model">
