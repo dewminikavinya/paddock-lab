@@ -2,10 +2,15 @@ import { useState, useEffect } from "react";
 import { Menu, X, ArrowUpRight, Layers } from "lucide-react";
 import "./navbar.css";
 
+interface NavbarProps {
+  onFigmaToolClick: () => void;
+  showFigmaBar: boolean;
+}
+
 export function Navbar({
   onFigmaToolClick,
   showFigmaBar,
-}) {
+}: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -23,7 +28,7 @@ export function Navbar({
     };
   }, []);
 
-  function scrollToSection(sectionId) {
+  function scrollToSection(sectionId: string) {
     setMenuOpen(false);
 
     const section = document.getElementById(sectionId);
