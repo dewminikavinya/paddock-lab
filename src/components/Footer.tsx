@@ -1,5 +1,7 @@
 import React from 'react';
 
+const currentYear = new Date().getFullYear();
+
 export const Footer: React.FC = () => {
   return (
     <footer className="bg-[#171719] text-[#f0eded] py-16 px-6 font-sans border-t border-[#f0eded]/10" id="footer">
@@ -24,7 +26,7 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-white mb-4">Navigation</h4>
             <ul className="space-y-2 text-sm text-[#85858c] font-mono">
-              <li><a href="#specs" className="hover:text-white transition-colors">Product Specs</a></li>
+              <li><a href="#product" className="hover:text-white transition-colors">Product Specs</a></li>
               <li><a href="#ai-coaching" className="hover:text-white transition-colors">AI Coaching</a></li>
               <li><a href="#telemetry-simulator" className="hover:text-white transition-colors">Live Simulator</a></li>
               <li><a href="#contact" className="hover:text-white transition-colors">Contact Engineering</a></li>
@@ -45,7 +47,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-[#85858c]">
-          <div>© {new Date().getFullYear()} Paddock Lab Telemetry Systems. All rights reserved.</div>
+          <div>© {currentYear} Paddock Lab Telemetry Systems. All rights reserved.</div>
           <div className="flex items-center gap-6">
             <span>Latency: 12ms</span>
             <span>Region: EU-Track-1</span>

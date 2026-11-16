@@ -32,18 +32,18 @@ export const TelemetrySimulator: React.FC = () => {
         return Math.round(nextSpeed);
       });
 
-      setRpm((prev) => {
+      setRpm(() => {
         const nextRpm = 4000 + Math.abs(Math.sin(simTick * 0.15)) * 7500 + (Math.random() * 300 - 150);
         return Math.round(Math.min(11500, Math.max(3500, nextRpm)));
       });
 
-      setThrottle((prev) => {
+      setThrottle(() => {
         const nextThrot = Math.max(0, Math.min(100, 50 + Math.sin(simTick * 0.08) * 50 + (Math.random() * 10 - 5)));
         setBrake(nextThrot < 20 ? Math.round(Math.random() * 80) : 0);
         return Math.round(nextThrot);
       });
 
-      setOilTemp((prev) => Number((105 + Math.sin(simTick * 0.01) * 3 + Math.random() * 0.5).toFixed(1)));
+      setOilTemp(() => Number((105 + Math.sin(simTick * 0.01) * 3 + Math.random() * 0.5).toFixed(1)));
       setLapTime((prev) => Number((prev + 0.1).toFixed(1)));
     }, 100);
 

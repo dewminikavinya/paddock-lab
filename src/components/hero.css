@@ -1,0 +1,259 @@
+/* Hero background and spacing */
+.hero {
+  padding: 140px 0 80px;
+  background-color: #f0eded;
+  color: #111116;
+  background-image:
+    linear-gradient(#11111606 1px, transparent 1px),
+    linear-gradient(90deg, #11111606 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.hero,
+.hero * {
+  box-sizing: border-box;
+}
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  align-items: center;
+  gap: 48px;
+  width: 92%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.hero-content,
+.hero-kart {
+  min-width: 0;
+}
+
+/* Introductory badge */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 14px;
+  margin-bottom: 20px;
+
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 30px;
+  font-family: monospace;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.hero-badge strong {
+  color: #701820;
+}
+
+.hero-dot {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #701820;
+}
+
+/* Heading and description */
+.hero-content h1 {
+  margin: 0 0 24px;
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: clamp(36px, 4.5vw, 60px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+}
+
+.hero-content h1 span {
+  color: #701820;
+}
+
+.hero-description {
+  margin: 0 0 24px;
+  color: #4b5563;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.hero-description strong {
+  color: #111116;
+}
+
+.hero-description .hero-red {
+  color: #701820;
+}
+
+/* Pilot information */
+.hero-pilot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  margin-bottom: 28px;
+
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+}
+
+.hero-pilot svg {
+  flex-shrink: 0;
+  color: #701820;
+}
+
+.hero-pilot p {
+  margin: 0;
+  color: #4b5563;
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* Action buttons */
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 36px;
+}
+
+.hero-buttons button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-height: 48px;
+  padding: 14px 22px;
+  border: 1px solid #e5e7eb;
+  border-radius: 30px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.hero-buttons button:focus-visible {
+  outline: 3px solid #b9231d;
+  outline-offset: 4px;
+}
+
+.hero-primary-button {
+  color: white;
+  background: #701820;
+  border-color: #701820 !important;
+}
+
+.hero-primary-button:hover {
+  background: #581218;
+}
+
+.hero-secondary-button {
+  color: #111116;
+  background: white;
+}
+
+.hero-secondary-button:hover {
+  background: #f3f4f6;
+}
+
+.hero-secondary-button svg {
+  color: #701820;
+}
+
+/* Specification values */
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.hero-stats > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-stats dt {
+  order: 2;
+  margin-top: 6px;
+  color: #6b7280;
+  font-family: monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.hero-stats dd {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.hero-stats dd span {
+  color: #701820;
+}
+
+/* Text below the kart */
+.hero-kart-caption {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px;
+  color: #6b7280;
+  font-family: monospace;
+  font-size: 11px;
+}
+
+.hero-kart-caption p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: inherit;
+}
+
+.hero-kart-model {
+  color: #111116;
+}
+
+/* Stack the content on smaller screens */
+@media (max-width: 1000px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .hero-content {
+    max-width: 650px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 120px 0 48px;
+  }
+
+  .hero-description {
+    font-size: 16px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .hero-kart-model {
+    display: none;
+  }
+
+  .hero-stats dd {
+    font-size: 21px;
+  }
+}
