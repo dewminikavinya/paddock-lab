@@ -3,6 +3,7 @@ import "./App.css";
 import { Navbar } from "./components/navbar";
 import { HeroSection } from "./components/hero-section";
 import { AboutSection } from "./components/about";
+import { Team } from "./components/team";
 
 function App() {
   const [showFigmaBar, setShowFigmaBar] = useState(false);
@@ -29,6 +30,8 @@ function App() {
         onTryAiCoach={() => scrollToSection("ai-coaching")}
       />
       <AboutSection />
+      <Team />
+      
     </div>
   );
 }
