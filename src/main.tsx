@@ -9,10 +9,8 @@ if (!root) {
   throw new Error('Root element was not found')
 }
 
-const AppComponent = App as unknown as () => JSX.Element
-
 createRoot(root).render(
   <StrictMode>
-    <AppComponent />
+    <App />
   </StrictMode>,
 )

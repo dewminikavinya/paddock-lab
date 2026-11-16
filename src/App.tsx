@@ -2,9 +2,7 @@ import './App.css'
 import ModelViewer from './components/ModelViewer'
 
 function App() {
- 
-        <ModelViewer />
-      
+  return <ModelViewer />
 }
 
 export default App
