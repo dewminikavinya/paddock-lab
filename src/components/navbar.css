@@ -1,0 +1,226 @@
+
+/* Position the navbar above the page content. */
+.navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: 94%;
+  max-width: 1040px;
+}
+
+.navbar-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 20px;
+
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e5e7eb;
+  border-radius: 40px;
+  box-shadow: 0 4px 12px #00000008;
+  transition: box-shadow 0.3s, background-color 0.3s;
+}
+
+.navbar-bar.scrolled {
+  background: #ffffff;
+  box-shadow: 0 8px 24px #00000014;
+}
+
+/* Shared button styles */
+.navbar button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.navbar button:focus-visible {
+  outline: 3px solid #e63932;
+  outline-offset: 4px;
+}
+
+/* Logo and project name */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  color: #111116;
+  background: none;
+  border: none;
+  text-align: left;
+}
+
+.navbar-logo img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.navbar-brand {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.labs-label {
+  padding: 2px 5px;
+  color: white;
+  background: #e63932;
+  border-radius: 4px;
+  font-size: 9px;
+}
+
+.navbar-tagline {
+  margin-top: 3px;
+  color: #6b7280;
+  font-size: 8px;
+  font-weight: 400;
+}
+
+/* Navigation links */
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.navbar-menu button {
+  padding: 8px 10px;
+  color: #4b5563;
+  background: none;
+  border: none;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.navbar-menu button:hover {
+  color: #111116;
+  background: #f3f4f6;
+}
+
+/* Buttons on the right */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tokens-button,
+.contact-button,
+.menu-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 24px;
+  font-size: 12px !important;
+}
+
+.tokens-button {
+  color: #6b7280;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+}
+
+.tokens-button.active {
+  color: #e63932;
+  background: #fff0ef;
+  border-color: #e63932;
+}
+
+.contact-button {
+  color: white;
+  background: #e63932;
+  border: 1px solid #e63932;
+}
+
+.contact-button:hover {
+  background: #cc2f29;
+}
+
+.menu-button {
+  display: none;
+  padding: 8px;
+  color: #111116;
+  background: #f3f4f6;
+  border: none;
+}
+
+.navbar-menu .mobile-tokens {
+  display: none;
+}
+
+/* Tablet and mobile layout */
+@media (max-width: 1000px) {
+  .navbar-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px #00000014;
+  }
+
+  .navbar-menu.is-open {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .navbar-menu button {
+    text-align: left;
+  }
+
+  .menu-button {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar-bar {
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .navbar-tagline,
+  .tokens-button {
+    display: none;
+  }
+
+  .navbar-menu .mobile-tokens {
+    display: block;
+    color: #e63932;
+  }
+
+  .contact-button {
+    padding: 8px 10px;
+  }
+
+  .navbar-brand {
+    font-size: 12px;
+  }
+
+  .navbar-logo {
+    gap: 6px;
+  }
+
+  .navbar-logo img {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar-bar {
+    transition: none;
+  }
+}
