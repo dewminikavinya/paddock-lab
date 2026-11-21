@@ -1,35 +1,53 @@
-# React + TypeScript + Vite
+# Paddock Labs
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A React + TypeScript landing page for kart telemetry and AI coaching.
 
-Currently, two official plugins are available:
+## Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Use Node.js 24 and npm (the project uses `package-lock.json`).
 
-## React Compiler
-
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```sh
+npm ci
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Validation
+
+```sh
+npm run build
+npm run lint
+npm run preview
+```
+
+The build type-checks the application before creating `dist/`.
+
+## Structure
+
+- `src/App.tsx`: composes all page sections.
+- `src/components/`: Navbar, Hero, About, AI Coaching, Telemetry Simulator,
+  Team, Contact, Footer, and their section styles.
+- `src/index.css`: Tailwind and shared base styles.
+- `src/App.css`: application layout only.
+- `src/assets/` and `public/`: local assets.
+- `vite.config.ts`: the single Vite configuration, with React and Tailwind.
+
+The navbar links to the home, about, product specifications, AI coaching,
+telemetry simulator, team, contact, and footer targets. On smaller screens,
+the menu button reveals the same navigation. Anchor targets account for the
+fixed navbar.
+
+## Interactive 3D model
+
+The Hero uses `@google/model-viewer` and the self-contained local asset at
+`public/models/model.glb`. Drag to rotate, zoom, or use the toolbar to
+pause/resume automatic rotation. Automatic rotation starts paused for users
+who prefer reduced motion. Loading and failure feedback appear in the viewer.
+
+The viewer is loaded as a separate code chunk. Its WebGL engine is relatively
+large (about 291 kB gzipped), and the model is about 5.4 MB. Model rendering
+requires browser WebGL support.
+
+## Demo limitations
+
+Telemetry and AI comparisons use simulated/sample data. The contact form is a
+local demo and does not send messages to a server.
