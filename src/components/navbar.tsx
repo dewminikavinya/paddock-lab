@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, ArrowUpRight, Flag } from "lucide-react";
+import { Menu, X, ArrowUpRight} from "lucide-react";
 import "./navbar.css";
 
 export function Navbar() {
@@ -59,7 +59,7 @@ export function Navbar() {
           onClick={scrollToTop}
           aria-label="Paddock Labs home"
         >
-          <Flag className="navbar-emblem" size={28} aria-hidden="true" />
+          <img className="navbar-emblem" src="/logo.png" alt="" width={40} height={40} />
 
           <span className="navbar-brand">
             <span>
