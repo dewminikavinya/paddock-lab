@@ -1,7 +1,7 @@
 /* Section layout */
 .team {
   padding: 90px 0;
-  background: #f6f7f9;
+  background: #f0eded;
   color: #111116;
   border-top: 1px solid #e5e7eb;
   scroll-margin-top: 110px;
@@ -41,7 +41,7 @@
 
 .team-label svg {
   flex-shrink: 0;
-  color: #e63932;
+  color: #701820;
 }
 
 .team-heading h2 {
@@ -81,7 +81,7 @@
 }
 
 .team-card:hover {
-  border-color: #e63932;
+  border-color: #701820;
 }
 
 /* Role badge and icon */
@@ -111,7 +111,7 @@
   flex-shrink: 0;
   width: 36px;
   height: 36px;
-  background: #f6f7f9;
+  background: #f0eded;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   transition: background-color 0.2s, color 0.2s;
@@ -119,7 +119,7 @@
 
 .team-card:hover .team-icon {
   color: #ffffff;
-  background: #e63932;
+  background: #701820;
 }
 
 /* Member information */

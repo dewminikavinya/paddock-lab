@@ -1,7 +1,7 @@
 /* Hero background and spacing */
 .hero {
   padding: 140px 0 80px;
-  background-color: #f6f7f9;
+  background-color: #f0eded;
   color: #111116;
   background-image:
     linear-gradient(#11111606 1px, transparent 1px),
@@ -47,7 +47,7 @@
 }
 
 .hero-badge strong {
-  color: #e63932;
+  color: #701820;
 }
 
 .hero-dot {
@@ -56,7 +56,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #e63932;
+  background: #701820;
 }
 
 /* Heading and description */
@@ -70,7 +70,7 @@
 }
 
 .hero-content h1 span {
-  color: #e63932;
+  color: #701820;
 }
 
 .hero-description {
@@ -85,7 +85,7 @@
 }
 
 .hero-description .hero-red {
-  color: #e63932;
+  color: #701820;
 }
 
 /* Pilot information */
@@ -103,7 +103,7 @@
 
 .hero-pilot svg {
   flex-shrink: 0;
-  color: #e63932;
+  color: #701820;
 }
 
 .hero-pilot p {
@@ -145,12 +145,12 @@
 
 .hero-primary-button {
   color: white;
-  background: #e63932;
-  border-color: #e63932 !important;
+  background: #701820;
+  border-color: #701820 !important;
 }
 
 .hero-primary-button:hover {
-  background: #cc2f29;
+  background: #581218;
 }
 
 .hero-secondary-button {
@@ -163,7 +163,7 @@
 }
 
 .hero-secondary-button svg {
-  color: #e63932;
+  color: #701820;
 }
 
 /* Specification values */
@@ -197,7 +197,7 @@
 }
 
 .hero-stats dd span {
-  color: #e63932;
+  color: #701820;
 }
 
 /* Text below the kart */
@@ -257,3 +257,5 @@
     font-size: 21px;
   }
 }
+
+.model-loading { display: grid; place-items: center; aspect-ratio: 4 / 3; border-radius: 20px; background: #e5e7eb; color: #4b5563; }
