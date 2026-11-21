@@ -63,10 +63,10 @@ export function AboutSection() {
             </p>
 
             <p className="about-details">
-              Lap times alone cannot explain corner-by-corner losses
+              Lap times alone cannot explain corner by corner losses
               or driver inputs. Paddock Labs was developed to bridge
-              that gap—combining accessible embedded hardware with
-              personalized, evidence-grounded AI coaching so every
+              that gap by combining accessible embedded hardware with
+              personalized, evidence grounded AI coaching so every
               driver can find their competitive edge.
             </p>
 
@@ -82,7 +82,7 @@ export function AboutSection() {
                 <h3 className="about-circuit-value">
                   1,216<span>m</span>
                 </h3>
-                <p>SpeedBay Bandaragama Pilot Circuit</p>
+                <p>SpeedBay Bandaragama International Circuit</p>
               </div>
             </div>
           </div>
@@ -96,7 +96,7 @@ export function AboutSection() {
 
               <div>
                 <h3>Vision for Driver Development</h3>
-                <p>Data-Informed Training Culture</p>
+                <p>Data Informed Training Culture</p>
               </div>
             </div>
 
@@ -104,7 +104,7 @@ export function AboutSection() {
               Progress should extend beyond recording basic lap times
               to understanding how a driver performs through each
               corner and what specific habit to adjust next. Our
-              mission is to make data-informed coaching accessible
+              mission is to make data informed coaching accessible
               to every ambitious racer.
             </p>
 
@@ -118,7 +118,7 @@ export function AboutSection() {
 
               <div>
                 <dt>Fleet Kart:</dt>
-                <dd>Sodi RT10 V2 / Honda GX390</dd>
+                <dd>Sodi RT10 V2 </dd>
               </div>
 
               <div>
