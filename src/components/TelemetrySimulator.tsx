@@ -153,8 +153,9 @@ export const TelemetrySimulator: React.FC = () => {
               </div>
             </div>
 
-            {/* Subsystems & Thermal */}
-            <div className="bg-[#f0edef] border border-[#171719]/10 rounded-2xl p-6 flex flex-col justify-between">
+           {/* Subsystems & Thermal */}
+            
+            {/* <div className="bg-[#f0edef] border border-[#171719]/10 rounded-2xl p-6 flex flex-col justify-between">
               <h4 className="text-sm font-mono font-bold uppercase text-[#171719] mb-4">Subsystem Telemetry</h4>
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-[#d9d9de]/50 p-4 rounded-xl border border-[#171719]/5">
@@ -168,9 +169,9 @@ export const TelemetrySimulator: React.FC = () => {
               </div>
               <div className="mt-4 pt-3 border-t border-[#171719]/10 flex items-center justify-between text-xs font-mono text-[#85858c]">
                 <span>ECU Connection: Stable</span>
-                <span className="text-emerald-700 font-bold">● OK</span>
+               <span className="text-emerald-700 font-bold">● OK</span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
