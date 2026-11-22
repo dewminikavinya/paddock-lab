@@ -16,6 +16,9 @@ interface TeamMember {
   bio: string;
   icon: LucideIcon;
   badge: string;
+  backName: string;
+  studentId: string;
+  universityId: string;
   image: string;
   imagePosition?: string;
 }
@@ -27,6 +30,9 @@ const teamMembers: TeamMember[] = [
     bio: "Leads the overall project development, coordinates the team, and oversees system architecture and integration. Ensures that the hardware, backend, AI and frontend components work together to deliver the complete kart telemetry and driver coaching platform.",
     icon: Cpu,
     badge: "PROJECT LEAD",
+    backName: "Rusith Weerasiri",
+    studentId: "20240789",
+    universityId: "w2181803",
     image: "/images/Rusith Weerasiri.png",
   },
   {
@@ -35,6 +41,9 @@ const teamMembers: TeamMember[] = [
     bio: "Develops intelligent driver performance analysis and personalized coaching algorithms. Works on identifying cornering patterns, detecting performance gaps, and generating data driven recommendations using machine learning.",
     icon: Brain,
     badge: "AI & MACHINE LEARNING",
+    backName: "Sanupa Gunarathne",
+    studentId: "20240555",
+    universityId: "w2181558",
     image: "/images/Sanupa Gunarathne.jpeg",
   },
   {
@@ -43,6 +52,9 @@ const teamMembers: TeamMember[] = [
     bio: "Designs and develops the Paddock Labs web application, creating intuitive dashboards for session summaries, lap comparisons, corner analysis, and personalized coaching insights. Focuses on delivering a clear and user-friendly experience for drivers and coaches.",
     icon: Monitor,
     badge: "FRONTEND DEVELOPMENT",
+    backName: "Savindi Perusinghe",
+    studentId: "20241904",
+    universityId: "w2182016",
     image: "/images/Savindi Perusinghe.jpeg",
   },
   {
@@ -51,6 +63,9 @@ const teamMembers: TeamMember[] = [
     bio: "Develops the kart's embedded telemetry unit, integrating ESP32-based hardware, GNSS, IMU and sensor technologies. Oversees sensor calibration, data acquisition, power management, and reliable on kart hardware integration.",
     icon: Microchip,
     badge: "HARDWARE & SENSORS",
+    backName: "Dewmini Kavinya",
+    studentId: "20241970",
+    universityId: "w2182023",
     image: "/images/Dewmini Kavinya.jpeg",
   },
   {
@@ -59,6 +74,9 @@ const teamMembers: TeamMember[] = [
     bio: "Develops the backend infrastructure and APIs that process, manage, and store kart telemetry data. Implements session management, sensor data processing, database integration, and communication between the hardware, AI models, and web application.",
     icon: Server,
     badge: "BACKEND DEVELOPMENT",
+    backName: "Matheesha Weerasinghe",
+    studentId: "20241149",
+    universityId: "w2182045",
     image: "/images/Dimuth Matheesha.jpeg",
   },
 ];
@@ -156,7 +174,11 @@ export function Team() {
                     <div className="team-card-back-content">
                       <span className="team-card-back-brand">PADDOCK LABS</span>
                       <div>
-                        <h3>{member.name}</h3>
+                        <h3>{member.backName}</h3>
+                        <div className="team-card-ids" aria-label="Student identification numbers">
+                          <span>Student ID: {member.studentId}</span>
+                          <span>University ID: {member.universityId}</span>
+                        </div>
                         <p className="team-role">{member.role}</p>
                       </div>
                     </div>
