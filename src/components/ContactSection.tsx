@@ -23,7 +23,19 @@ export const ContactSection: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-      const result = await response.json();
+      const contentType = response.headers.get('content-type') || '';
+      let result: { error?: string; ok?: boolean };
+
+      if (contentType.includes('application/json')) {
+        result = await response.json();
+      } else {
+        const responseText = await response.text();
+        throw new Error(
+          responseText.trim()
+            ? 'The contact server is unavailable. Please try again later.'
+            : 'Unable to send your inquiry.',
+        );
+      }
 
       if (!response.ok) {
         throw new Error(result.error || 'Unable to send your inquiry.');
