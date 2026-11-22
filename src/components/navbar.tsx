@@ -2,37 +2,164 @@ import { useState, useEffect } from "react";
 import { Menu, X, ArrowUpRight} from "lucide-react";
 import "./navbar.css";
 
+export const NAV_SECTION_IDS = [
+  "home",
+  "product",
+  "about-us",
+  "ai-coaching",
+  "telemetry-simulator",
+  "team",
+  "contact",
+  "footer",
+] as const;
+
+let scrollAnimationFrame: number | null = null;
+let navigationLockId: string | null = null;
+
+function cancelNavigationAnimation() {
+  if (scrollAnimationFrame !== null) {
+    window.cancelAnimationFrame(scrollAnimationFrame);
+    scrollAnimationFrame = null;
+  }
+  navigationLockId = null;
+}
+
+function getNavbarOffset() {
+  const navbar = document.querySelector<HTMLElement>(".navbar-bar");
+  return navbar ? Math.ceil(navbar.getBoundingClientRect().bottom) : 20;
+}
+
+export function scrollToSection(sectionId: string) {
+  if (scrollAnimationFrame !== null) {
+    window.cancelAnimationFrame(scrollAnimationFrame);
+    scrollAnimationFrame = null;
+  }
+
+  const section = document.getElementById(sectionId);
+  if (!section) return;
+
+  navigationLockId = sectionId;
+  window.dispatchEvent(new CustomEvent("paddock:navigation", {
+    detail: { sectionId },
+  }));
+
+  const targetTop = sectionId === "home"
+    ? 0
+    : Math.max(0, window.scrollY + section.getBoundingClientRect().top - getNavbarOffset());
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    window.scrollTo({ top: targetTop, behavior: "auto" });
+    navigationLockId = null;
+    return;
+  }
+
+  const startTop = window.scrollY;
+  const distance = targetTop - startTop;
+  if (Math.abs(distance) < 2) {
+    window.scrollTo({ top: targetTop, behavior: "auto" });
+    navigationLockId = null;
+    return;
+  }
+
+  const duration = Math.min(900, Math.max(350, Math.abs(distance) * 0.32));
+  const startTime = performance.now();
+
+  function animate(now: number) {
+    const elapsed = Math.min(1, (now - startTime) / duration);
+    const eased = 1 - Math.pow(1 - elapsed, 3);
+    window.scrollTo({ top: startTop + distance * eased, behavior: "auto" });
+
+    if (elapsed < 1) {
+      scrollAnimationFrame = window.requestAnimationFrame(animate);
+    } else {
+      scrollAnimationFrame = null;
+      navigationLockId = null;
+    }
+  }
+
+  scrollAnimationFrame = window.requestAnimationFrame(animate);
+}
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   // Update the navbar appearance when scrolling.
   useEffect(() => {
+    let scrollFrame: number | null = null;
+
     function handleScroll() {
       setScrolled(window.scrollY > 20);
+
+      if (scrollFrame !== null) return;
+
+      scrollFrame = window.requestAnimationFrame(() => {
+        scrollFrame = null;
+
+        if (navigationLockId !== null) {
+          setActiveSection(navigationLockId);
+          return;
+        }
+
+        if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
+          setActiveSection("footer");
+          return;
+        }
+
+        const line = getNavbarOffset() + 1;
+        let current = "home";
+
+        for (const sectionId of NAV_SECTION_IDS) {
+          const section = document.getElementById(sectionId);
+          if (section && section.getBoundingClientRect().top <= line) {
+            current = sectionId;
+          }
+        }
+
+        setActiveSection(current);
+      });
+    }
+
+    function handleManualScroll() {
+      cancelNavigationAnimation();
+    }
+
+    function handleScrollKey(event: KeyboardEvent) {
+      if (["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(event.key)) {
+        handleManualScroll();
+      }
+    }
+
+    function handleNavigationEvent(event: Event) {
+      const customEvent = event as CustomEvent<{ sectionId: string }>;
+      setActiveSection(customEvent.detail.sectionId);
     }
 
     handleScroll();
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("wheel", handleManualScroll, { passive: true });
+    window.addEventListener("touchstart", handleManualScroll, { passive: true });
+    window.addEventListener("keydown", handleScrollKey);
+    window.addEventListener("paddock:navigation", handleNavigationEvent);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("wheel", handleManualScroll);
+      window.removeEventListener("touchstart", handleManualScroll);
+      window.removeEventListener("keydown", handleScrollKey);
+      window.removeEventListener("paddock:navigation", handleNavigationEvent);
+      if (scrollFrame !== null) window.cancelAnimationFrame(scrollFrame);
     };
   }, []);
 
-  function scrollToSection(sectionId: string) {
+  function navigateToSection(sectionId: string) {
     setMenuOpen(false);
-
-    const section = document.getElementById(sectionId);
-
-    if (section) {
-      section.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
-    }
+    scrollToSection(sectionId);
   }
 
   function scrollToTop() {
     setMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+    scrollToSection("home");
   }
 
   function toggleMenu() {
@@ -81,7 +208,9 @@ export function Navbar() {
             <button
               type="button"
               key={link.id}
-              onClick={() => scrollToSection(link.id)}
+              className={activeSection === link.id ? "active" : undefined}
+              aria-current={activeSection === link.id ? "page" : undefined}
+              onClick={() => navigateToSection(link.id)}
             >
               {link.name}
             </button>
@@ -93,7 +222,7 @@ export function Navbar() {
           <button
             type="button"
             className="contact-button"
-            onClick={() => scrollToSection("contact")}
+            onClick={() => navigateToSection("contact")}
           >
             Contact Team
             <ArrowUpRight size={14} />
