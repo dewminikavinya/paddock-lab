@@ -63,9 +63,9 @@ export const ContactSection: React.FC = () => {
               <div className="w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">
                 ✓
               </div>
-              <h3 className="text-2xl font-bold mb-2 text-[#171719]">Inquiry Dispatched Successfully</h3>
+              <h3 className="text-2xl font-bold mb-2 text-[#171719]">Demo Inquiry Completed</h3>
               <p className="text-[#85858c] text-sm mb-6">
-                Our trackside telemetry team will review your message and get back to your secure email shortly.
+                This is a local demonstration. Your inquiry has not been sent or stored.
               </p>
               <button
                 onClick={() => {
@@ -81,8 +81,8 @@ export const ContactSection: React.FC = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-xs font-mono font-bold text-[#171719] uppercase mb-2">Your Name</label>
-                  <input
+                  <label htmlFor="contact-name" className="block text-xs font-mono font-bold text-[#171719] uppercase mb-2">Your Name</label>
+                  <input id="contact-name"
                     type="text"
                     required
                     placeholder="e.g. Alex Mercer"
@@ -92,8 +92,8 @@ export const ContactSection: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-mono font-bold text-[#171719] uppercase mb-2">Email Address</label>
-                  <input
+                  <label htmlFor="contact-email" className="block text-xs font-mono font-bold text-[#171719] uppercase mb-2">Email Address</label>
+                  <input id="contact-email"
                     type="email"
                     required
                     placeholder="alex@racingteam.com"
@@ -106,8 +106,8 @@ export const ContactSection: React.FC = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-xs font-mono font-bold text-[#171719] uppercase mb-2">Team / Organization</label>
-                  <input
+                  <label htmlFor="contact-team" className="block text-xs font-mono font-bold text-[#171719] uppercase mb-2">Team / Organization</label>
+                  <input id="contact-team"
                     type="text"
                     placeholder="Apex Motorsports"
                     value={formData.team}
@@ -116,8 +116,8 @@ export const ContactSection: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-mono font-bold text-[#171719] uppercase mb-2">Inquiry Focus</label>
-                  <select
+                  <label htmlFor="contact-focus" className="block text-xs font-mono font-bold text-[#171719] uppercase mb-2">Inquiry Focus</label>
+                  <select id="contact-focus"
                     value={formData.inquiryType}
                     onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
                     className="w-full bg-[#f0edef] border border-[#171719]/10 rounded-xl px-4 py-3 text-[#171719] text-sm focus:outline-none focus:border-[#701820] transition-colors cursor-pointer"
@@ -131,8 +131,8 @@ export const ContactSection: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-mono font-bold text-[#171719] uppercase mb-2">Project Details & Requirements</label>
-                <textarea
+                <label htmlFor="contact-message" className="block text-xs font-mono font-bold text-[#171719] uppercase mb-2">Project Details & Requirements</label>
+                <textarea id="contact-message"
                   rows={4}
                   required
                   placeholder="Describe your vehicle sensors, CAN bus specifications, or deployment goals..."

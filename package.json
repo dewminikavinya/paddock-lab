@@ -1,5 +1,5 @@
 {
-  "name": "ai-coaching-comparison",
+  "name": "paddock-lab",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,6 +13,8 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.3.5",
     "concurrently": "^10.0.7",
+    "@google/model-viewer": "^4.4.0",
+    "lucide-react": "^1.73.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "resend": "^6.39.0",
