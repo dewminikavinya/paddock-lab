@@ -7,7 +7,6 @@ export const TelemetrySimulator: React.FC = () => {
   const [gear, setGear] = useState<number>(4);
   const [throttle, setThrottle] = useState<number>(85);
   const [brake, setBrake] = useState<number>(0);
-  /*const [oilTemp, setOilTemp] = useState<number>(108);*/
   const [lapTime, setLapTime] = useState<number>(82.4);
   const [simTick, setSimTick] = useState<number>(0);
 
