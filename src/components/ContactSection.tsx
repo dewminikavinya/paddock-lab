@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 export const ContactSection: React.FC = () => {
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [submitting, setSubmitting] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -10,9 +12,33 @@ export const ContactSection: React.FC = () => {
     message: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    setError('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Unable to send your inquiry.');
+      }
+
+      setSubmitted(true);
+    } catch (submissionError) {
+      setError(
+        submissionError instanceof Error
+          ? submissionError.message
+          : 'Unable to send your inquiry.',
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -117,11 +143,17 @@ export const ContactSection: React.FC = () => {
               </div>
 
               <div className="text-center pt-2">
+                {error && (
+                  <p className="mb-4 text-sm font-medium text-red-700" role="alert">
+                    {error}
+                  </p>
+                )}
                 <button
                   type="submit"
-                  className="font-mono text-xs font-bold px-8 py-4 rounded-full bg-[#701820] text-[#f0edef] hover:bg-[#581218] transition-all shadow-md cursor-pointer w-full md:w-auto"
+                  disabled={submitting}
+                  className="font-mono text-xs font-bold px-8 py-4 rounded-full bg-[#701820] text-[#f0edef] hover:bg-[#581218] transition-all shadow-md cursor-pointer w-full md:w-auto disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  Preview Inquiry
+                  {submitting ? 'Transmitting...' : 'Transmit Inquiry'}
                 </button>
               </div>
             </form>
