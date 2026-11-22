@@ -5,7 +5,9 @@ import { fileURLToPath } from 'node:url';
 import { Resend } from 'resend';
 
 const port = Number(process.env.PORT || 3001);
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY
+  ? new Resend(process.env.RESEND_API_KEY)
+  : null;
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.join(rootDir, 'dist');
 
