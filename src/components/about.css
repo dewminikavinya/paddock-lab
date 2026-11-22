@@ -1,0 +1,322 @@
+/* Section layout */
+.about {
+  padding: 90px 0;
+  background: #ffffff;
+  color: #111116;
+  border-top: 1px solid #e5e7eb;
+  scroll-margin-top: 110px;
+}
+
+.about,
+.about * {
+  box-sizing: border-box;
+}
+
+.about-container {
+  width: 92%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.about-top {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: 48px;
+  margin-bottom: 80px;
+}
+
+/* Background and introduction */
+.about-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  margin-bottom: 24px;
+  background: #f0eded;
+  border: 1px solid #e5e7eb;
+  border-radius: 30px;
+  font-family: monospace;
+  font-size: 11px;
+}
+
+.about-dot {
+  width: 7px;
+  height: 7px;
+  background: #701820;
+  border-radius: 50%;
+}
+
+.about-content h2 {
+  margin: 0 0 24px;
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: clamp(30px, 3.6vw, 48px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -1px;
+}
+
+.about-description {
+  margin: 0 0 20px;
+  color: #4b5563;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.about-description strong {
+  color: #111116;
+}
+
+.about-details {
+  margin: 0;
+  color: #6b7280;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+/* Project statistics */
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.about-stat {
+  padding: 20px;
+  background: #f0eded;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+}
+
+.about-stat h3 {
+  margin: 0 0 6px;
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.about-stat h3 span {
+  color: #701820;
+}
+
+.about-stat .about-circuit-value {
+  color: #701820;
+}
+
+.about-stat .about-circuit-value span {
+  color: #111116;
+}
+
+.about-stat p {
+  margin: 0;
+  color: #6b7280;
+  font-family: monospace;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* Dark vision card */
+.about-vision {
+  padding: 36px;
+  background: #111116;
+  color: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 16px 32px #00000020;
+}
+
+.about-vision-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.about-vision-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  background: #701820;
+  border-radius: 14px;
+}
+
+.about-vision-heading h3 {
+  margin: 0 0 5px;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.about-vision-heading p {
+  margin: 0;
+  color: #a1a1aa;
+  font-family: monospace;
+  font-size: 11px;
+}
+
+.about-vision-description {
+  margin: 0 0 24px;
+  color: #d4d4d8;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+/* Pilot details inside the vision card */
+.about-pilot {
+  margin: 0;
+  padding: 16px;
+  background: #1c1c24;
+  border: 1px solid #ffffff1a;
+  border-radius: 16px;
+  font-family: monospace;
+  font-size: 11px;
+}
+
+.about-pilot > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.about-pilot > div:last-child {
+  margin-bottom: 0;
+}
+
+.about-pilot dt {
+  flex-shrink: 0;
+  color: #d4d4d8;
+}
+
+.about-pilot dd {
+  margin: 0;
+  color: #a1a1aa;
+  text-align: right;
+}
+
+.about-pilot .about-pilot-name {
+  color: #ff655e;
+}
+
+/* Intended user cards */
+.about-users-heading {
+  margin-bottom: 36px;
+  text-align: center;
+}
+
+.about-users-heading p {
+  margin: 0 0 6px;
+  color: #701820;
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.about-users-heading h3 {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.3;
+}
+
+.about-user-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.about-user-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px;
+  background: #f0eded;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+}
+
+.about-user-card:hover {
+  border-color: #701820;
+}
+
+.about-user-card h4 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+
+.about-user-challenge {
+  margin: 0;
+  color: #dc2626;
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.about-user-benefit {
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.about-user-benefit h5 {
+  margin: 0 0 8px;
+  font-family: monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.about-user-benefit p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* Tablet layout */
+@media (max-width: 1000px) {
+  .about-top {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .about-user-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile layout */
+@media (max-width: 600px) {
+  .about {
+    padding: 56px 0;
+  }
+
+  .about-top {
+    margin-bottom: 48px;
+  }
+
+  .about-vision {
+    padding: 24px;
+  }
+
+  .about-user-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-pilot > div {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .about-pilot dd {
+    text-align: left;
+  }
+
+  .about-stat {
+    padding: 16px;
+  }
+
+  .about-stat h3 {
+    font-size: 25px;
+  }
+}

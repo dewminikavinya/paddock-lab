@@ -1,0 +1,3 @@
+/* Keep page layout full-width; section components own their styles. */
+#root { min-height: 100svh; }
+main { width: 100%; }
