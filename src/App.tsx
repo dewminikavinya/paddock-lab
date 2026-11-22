@@ -1,6 +1,7 @@
 import { Navbar, scrollToSection } from './components/navbar';
 import { HeroSection } from './components/hero-section';
 import { AboutSection } from './components/about';
+import { HowItWorks } from './components/How-It-Works';
 import { ProductSpecs } from './ProductSpecs';
 import { Team } from './components/team';
 import { AICoaching } from './components/AICoaching';
@@ -19,6 +20,7 @@ export default function App() {
           onTryAiCoach={() => scrollToSection('ai-coaching')}
         />
         <AboutSection />
+        <HowItWorks />
         <ProductSpecs />
         <AICoaching />
         <TelemetrySimulator />

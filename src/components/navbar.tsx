@@ -6,6 +6,7 @@ export const NAV_SECTION_IDS = [
   "home",
   "product",
   "about-us",
+  "how-it-works",
   "ai-coaching",
   "telemetry-simulator",
   "team",
@@ -169,6 +170,7 @@ export function Navbar() {
   const links = [
     { name: "Home", id: "home" },
     { name: "About Us", id: "about-us" },
+    { name: "How It Works", id: "how-it-works" },
     { name: "Live Simulator", id: "telemetry-simulator" },
     { name: "Product", id: "product" },
     { name: "AI Coaching", id: "ai-coaching" },
