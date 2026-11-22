@@ -1,175 +1,170 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useEffect, useRef, useState } from 'react';
+
+const BEST_LAP_SECONDS = 82.4;
+
+const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+
+const formatLapTime = (totalSeconds: number) => {
+  const safeSeconds = Math.max(0, totalSeconds);
+  const minutes = Math.floor(safeSeconds / 60);
+  const seconds = safeSeconds % 60;
+  const wholeSeconds = Math.floor(seconds);
+  const tenths = Math.floor((seconds - wholeSeconds) * 10 + 1e-9);
+  return `${minutes}:${String(wholeSeconds).padStart(2, '0')}.${tenths}`;
+};
+
+const formatSigned = (value: number, digits = 1) => `${value >= 0 ? '+' : ''}${value.toFixed(digits)}`;
 
 export const TelemetrySimulator: React.FC = () => {
   const [isRunning, setIsRunning] = useState<boolean>(true);
   const [speed, setSpeed] = useState<number>(142);
-  const [rpm, setRpm] = useState<number>(8400);
-  const [gear, setGear] = useState<number>(4);
-  const [throttle, setThrottle] = useState<number>(85);
-  const [brake, setBrake] = useState<number>(0);
-  const [lapTime, setLapTime] = useState<number>(82.4);
+  const [gForce, setGForce] = useState<number>(0);
+  const [gForceMs2, setGForceMs2] = useState<number>(0);
+  const [peakG, setPeakG] = useState<number>(0);
+  const [lapTimeSeconds, setLapTimeSeconds] = useState<number>(0);
+  const [deltaSeconds, setDeltaSeconds] = useState<number>(0);
   const [simTick, setSimTick] = useState<number>(0);
+  const prevSpeedRef = useRef<number>(142);
 
   useEffect(() => {
     if (!isRunning) return;
 
     const interval = setInterval(() => {
       setSimTick((prev) => prev + 1);
-      
-      // Simulate real-time acceleration and braking cycles
-      setSpeed((prev) => {
+
+      setSpeed((prevSpeed) => {
         const delta = Math.sin(simTick * 0.1) * 12 + (Math.random() * 4 - 2);
-        const nextSpeed = Math.max(60, Math.min(295, prev + delta));
-        
-        // Automatic gear simulation based on speed
-        if (nextSpeed < 90) setGear(2);
-        else if (nextSpeed < 140) setGear(3);
-        else if (nextSpeed < 190) setGear(4);
-        else if (nextSpeed < 240) setGear(5);
-        else setGear(6);
-        
-        return Math.round(nextSpeed);
+        const nextSpeed = Math.round(clamp(prevSpeed + delta, 60, 295));
+
+        const deltaKmh = nextSpeed - prevSpeed;
+        const ms2 = (deltaKmh / 3.6) / 0.1;
+        const g = ms2 / 9.80665;
+
+        setGForceMs2(Number(ms2.toFixed(1)));
+        setGForce(Number(g.toFixed(2)));
+        setPeakG((prevPeak) => Number(Math.max(prevPeak, Math.abs(g)).toFixed(2)));
+
+        prevSpeedRef.current = nextSpeed;
+        return nextSpeed;
       });
 
-      setRpm(() => {
-        const nextRpm = 4000 + Math.abs(Math.sin(simTick * 0.15)) * 7500 + (Math.random() * 300 - 150);
-        return Math.round(Math.min(11500, Math.max(3500, nextRpm)));
-      });
+      setLapTimeSeconds((prev) => Number((prev + 0.1).toFixed(1)));
 
-      setThrottle(() => {
-        const nextThrot = Math.max(0, Math.min(100, 50 + Math.sin(simTick * 0.08) * 50 + (Math.random() * 10 - 5)));
-        setBrake(nextThrot < 20 ? Math.round(Math.random() * 80) : 0);
-        return Math.round(nextThrot);
+      setDeltaSeconds((prev) => {
+        const paceBias = Math.sin(simTick * 0.07) * 0.12;
+        const noise = (Math.random() - 0.5) * 0.18;
+        const nextDelta = prev * 0.82 + paceBias + noise;
+        return Number(clamp(nextDelta, -2.5, 3.0).toFixed(1));
       });
-
-      setLapTime((prev) => Number((prev + 0.1).toFixed(1)));
     }, 100);
 
     return () => clearInterval(interval);
   }, [isRunning, simTick]);
 
+  const cardClassName =
+    'group relative overflow-hidden rounded-2xl border border-[#d9dde6]/80 bg-gradient-to-br from-[#8b3a44]/22 via-[#7a2f3a]/14 to-[#d8dde6]/12 p-6 shadow-[0_10px_30px_rgba(87,35,43,0.12)] backdrop-blur-md ring-1 ring-white/45 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#e6e9f0] hover:shadow-[0_18px_40px_rgba(87,35,43,0.18)]';
+  const cardAccentClassName =
+    'pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#dfe4ec] to-transparent opacity-80 transition-all duration-300 group-hover:via-[#f3f5f8] group-hover:opacity-100';
+  const cardGlowClassName =
+    'pointer-events-none absolute -top-16 right-[-20%] h-40 w-40 rounded-full bg-[#8b3a44]/12 blur-3xl transition-opacity duration-300 group-hover:opacity-100';
+  const metricLabelClassName = 'mb-1 font-mono text-[16px] uppercase tracking-wider text-[#7a5c61]';
+  const innerPanelClassName =
+    'rounded-xl border border-[#dde2ea]/80 bg-white/30 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] backdrop-blur-sm';
+
   return (
-    <section className="bg-[#f0eded] text-[#171719] py-20 px-6 font-sans" id="telemetry-simulator">
-      <div className="max-w-[1240px] mx-auto">
+    <section className="bg-[#f0eded] px-6 py-20 font-sans text-[#171719]" id="telemetry-simulator">
+      <div className="mx-auto max-w-[1240px]">
         {/* Header */}
-        <div className="text-center max-w-[700px] mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 bg-[#f0edef] border border-[#171719]/10 rounded-full px-4 py-2 mb-5 shadow-sm">
-            <span className={`w-2 h-2 rounded-full ${isRunning ? 'bg-emerald-600 animate-pulse' : 'bg-amber-600'}`}></span>
-            <span className="font-mono text-xs font-bold tracking-wider uppercase text-[#171719]">
+        <div className="mx-auto mb-14 max-w-[700px] text-center">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#171719]/10 bg-[#f0edef] px-4 py-2 shadow-sm">
+            <span className={`h-2 w-2 rounded-full ${isRunning ? 'animate-pulse bg-emerald-600' : 'bg-amber-600'}`}></span>
+            <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#171719]">
               {isRunning ? 'LIVE TELEMETRY STREAM ACTIVE' : 'SIMULATOR PAUSED'}
             </span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">Real-Time ECU Telemetry Simulator</h2>
-          <p className="text-[#85858c] text-base leading-relaxed">
+          <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-[#171719] md:text-5xl">
+            Real-Time ECU Telemetry Simulator
+          </h2>
+          <p className="text-base leading-relaxed text-[#85858c]">
             Simulating high-frequency CAN bus data streams from onboard vehicle sensors at a 10Hz sampling rate.
           </p>
         </div>
 
         {/* Controls Bar */}
-        <div className="flex justify-center gap-4 mb-10">
+        <div className="mb-10 flex justify-center">
           <button
             onClick={() => setIsRunning(!isRunning)}
-            className={`font-mono text-xs font-bold px-6 py-3 rounded-full border transition-all cursor-pointer ${
+            className={`cursor-pointer rounded-full border px-6 py-3 font-mono text-xs font-bold shadow-[inset_0_1px_0_rgba(255,255,255,0.45)] backdrop-blur-md transition-all duration-300 ${
               isRunning
-                ? 'bg-[#701820] text-[#f0edef] border-[#701820] shadow-md hover:bg-[#581218]'
-                : 'bg-emerald-700 text-white border-emerald-800 shadow-md hover:bg-emerald-800'
+                ? 'border-[#d8dde6]/80 bg-[#7a2f3a]/80 text-[#fff7f8] ring-1 ring-white/30 hover:bg-[#682733]/85 hover:shadow-[0_10px_24px_rgba(122,47,58,0.25)]'
+                : 'border-[#d8dde6]/80 bg-emerald-700/80 text-white ring-1 ring-white/30 hover:bg-emerald-700/90 hover:shadow-[0_10px_24px_rgba(16,185,129,0.2)]'
             }`}
           >
             {isRunning ? 'Pause Simulator' : 'Resume Simulator'}
           </button>
-          <button
-            onClick={() => {
-              setSpeed(120);
-              setRpm(6000);
-              setGear(3);
-              setSimTick(0);
-            }}
-            className="font-mono text-xs font-bold px-6 py-3 rounded-full bg-[#d9d9de] text-[#171719] border border-[#171719]/10 hover:bg-[#c7c7cc] transition-all cursor-pointer"
-          >
-            Reset ECU Stream
-          </button>
         </div>
 
-        {/* Main Telemetry Dashboard Grid */}
-        <div className="bg-[#d9d9de] border border-[#171719]/10 rounded-3xl p-8 md:p-12 shadow-lg">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            {/* Speed Card */}
-            <div className="bg-[#f0edef] border border-[#171719]/10 rounded-2xl p-6 text-center">
-              <div className="text-xs font-mono text-[#85858c] uppercase tracking-wider mb-1">Velocity</div>
-              <div className="text-4xl md:text-5xl font-extrabold text-[#171719] font-mono my-2">{speed}</div>
-              <div className="text-xs font-mono text-[#701820] font-bold">KM/H</div>
-            </div>
+        {/* Main Telemetry Dashboard */}
+        <div className="rounded-3xl border border-[#d7dce3]/80 bg-white/28 p-8 shadow-[0_20px_60px_rgba(86,42,49,0.12),inset_0_1px_0_rgba(255,255,255,0.7)] backdrop-blur-xl ring-1 ring-white/40 md:p-12">
+          <div className="space-y-8">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+              {/* Velocity Card */}
+              <div className={cardClassName}>
+                <div className={cardAccentClassName}></div>
+                <div className={cardGlowClassName}></div>
+                <div className={metricLabelClassName}>Velocity</div>
+                <div className="my-2 font-mono text-4xl font-extrabold tabular-nums text-[#2b1d20] md:text-5xl">{speed}</div>
+                <div className="font-mono text-[16px] font-bold tracking-wider text-[#7a2f3a]">KM/H</div>
+                <div className="mt-4 font-mono text-[16px] text-[#7b666a]">Wheel-speed derived vehicle velocity</div>
+              </div>
 
-            {/* RPM Card */}
-            <div className="bg-[#f0edef] border border-[#171719]/10 rounded-2xl p-6 text-center">
-              <div className="text-xs font-mono text-[#85858c] uppercase tracking-wider mb-1">Engine Speed</div>
-              <div className="text-4xl md:text-5xl font-extrabold text-[#701820] font-mono my-2">{rpm}</div>
-              <div className="text-xs font-mono text-[#85858c] font-bold">RPM</div>
-            </div>
-
-            {/* Gear Card */}
-            <div className="bg-[#f0edef] border border-[#171719]/10 rounded-2xl p-6 text-center">
-              <div className="text-xs font-mono text-[#85858c] uppercase tracking-wider mb-1">Active Gear</div>
-              <div className="text-4xl md:text-5xl font-extrabold text-[#171719] font-mono my-2">{gear}</div>
-              <div className="text-xs font-mono text-emerald-700 font-bold">SEQUENTIAL</div>
-            </div>
-
-            {/* Lap Time Card */}
-            <div className="bg-[#f0edef] border border-[#171719]/10 rounded-2xl p-6 text-center">
-              <div className="text-xs font-mono text-[#85858c] uppercase tracking-wider mb-1">Current Session</div>
-              <div className="text-4xl md:text-5xl font-extrabold text-[#171719] font-mono my-2">{lapTime}s</div>
-              <div className="text-xs font-mono text-[#85858c] font-bold">ELAPSED</div>
-            </div>
-          </div>
-
-          {/* Pedal & Temperatures Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Pedal Inputs */}
-            <div className="bg-[#f0edef] border border-[#171719]/10 rounded-2xl p-6">
-              <h4 className="text-sm font-mono font-bold uppercase text-[#171719] mb-4">Pedal Inputs & Load</h4>
-              
-              <div className="space-y-4">
-                <div>
-                  <div className="flex justify-between text-xs font-mono mb-1">
-                    <span className="text-[#85858c]">THROTTLE POSITION</span>
-                    <span className="font-bold text-[#171719]">{throttle}%</span>
+              {/* Acceleration Section */}
+              <div className={cardClassName}>
+                <div className={cardAccentClassName}></div>
+                <div className={cardGlowClassName}></div>
+                <div className={metricLabelClassName}>Acceleration</div>
+                <div className="my-2 font-mono text-4xl font-extrabold tabular-nums text-[#2b1d20] md:text-5xl">
+                  {formatSigned(gForce, 2)} <span className="text-xl text-[#5a3d42] md:text-2xl">G-FORCE</span>
+                </div>
+                <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <div className={innerPanelClassName}>
+                    <div className="font-mono text-[16px] uppercase text-[#7a5c61]">Converted</div>
+                    <div className="mt-1 font-mono text-lg font-bold tabular-nums text-[#2b1d20]">{gForceMs2.toFixed(1)} m/s²</div>
                   </div>
-                  <div className="w-full bg-[#d9d9de] h-3 rounded-full overflow-hidden border border-[#171719]/10">
-                    <div className="bg-emerald-600 h-full transition-all duration-100" style={{ width: `${throttle}%` }}></div>
+                  <div className={innerPanelClassName}>
+                    <div className="font-mono text-[16px] uppercase text-[#7a5c61]">Peak Recorded</div>
+                    <div className="mt-1 font-mono text-lg font-bold tabular-nums text-[#7a2f3a]">{peakG.toFixed(2)} G</div>
                   </div>
                 </div>
+              </div>
 
-                <div>
-                  <div className="flex justify-between text-xs font-mono mb-1">
-                    <span className="text-[#85858c]">BRAKE PRESSURE</span>
-                    <span className="font-bold text-[#701820]">{brake} bar</span>
+              {/* Lap Time Section */}
+              <div className={`${cardClassName} md:col-span-2 md:mx-auto md:w-full md:max-w-xl`}>
+                <div className={cardAccentClassName}></div>
+                <div className={cardGlowClassName}></div>
+                <div className={metricLabelClassName}>Lap Time</div>
+                <div className="my-2 font-mono text-4xl font-extrabold tabular-nums text-[#2b1d20] md:text-5xl">
+                  {formatLapTime(lapTimeSeconds)}
+                </div>
+                <div className="font-mono text-[16px] font-bold tracking-wider text-[#7a2f3a]">LIVE LAP CLOCK</div>
+                <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <div className={innerPanelClassName}>
+                    <div className="font-mono text-[16px] uppercase text-[#7a5c61]">Best Reference</div>
+                    <div className="mt-1 font-mono text-lg font-bold tabular-nums text-[#2b1d20]">{formatLapTime(BEST_LAP_SECONDS)}</div>
                   </div>
-                  <div className="w-full bg-[#d9d9de] h-3 rounded-full overflow-hidden border border-[#171719]/10">
-                    <div className="bg-[#701820] h-full transition-all duration-100" style={{ width: `${(brake / 100) * 100}%` }}></div>
+                  <div className={innerPanelClassName}>
+                    <div className="font-mono text-[16px] uppercase text-[#7a5c61]">Live Delta vs Best</div>
+                    <div
+                      className={`mt-1 font-mono text-lg font-bold tabular-nums ${
+                        deltaSeconds > 0 ? 'text-[#8b3a44]' : deltaSeconds < 0 ? 'text-emerald-700' : 'text-[#2b1d20]'
+                      }`}
+                    >
+                      {formatSigned(deltaSeconds, 1)} s
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-
-           {/* Subsystems & Thermal */}
-            
-            {/* <div className="bg-[#f0edef] border border-[#171719]/10 rounded-2xl p-6 flex flex-col justify-between">
-              <h4 className="text-sm font-mono font-bold uppercase text-[#171719] mb-4">Subsystem Telemetry</h4>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-[#d9d9de]/50 p-4 rounded-xl border border-[#171719]/5">
-                  <div className="text-[11px] font-mono text-[#85858c] uppercase">Oil Temp</div>
-                  <div className="text-lg font-bold font-mono text-[#171719]">{oilTemp} °C</div>
-                </div>
-                <div className="bg-[#d9d9de]/50 p-4 rounded-xl border border-[#171719]/5">
-                  <div className="text-[11px] font-mono text-[#85858c] uppercase">CAN Bus Rate</div>
-                  <div className="text-lg font-bold font-mono text-[#701820]">10.2 Hz</div>
-                </div>
-              </div>
-              <div className="mt-4 pt-3 border-t border-[#171719]/10 flex items-center justify-between text-xs font-mono text-[#85858c]">
-                <span>ECU Connection: Stable</span>
-               <span className="text-emerald-700 font-bold">● OK</span>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>
