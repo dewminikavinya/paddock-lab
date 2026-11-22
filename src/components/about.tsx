@@ -57,9 +57,9 @@ export function AboutSection() {
             <p className="about-description">
               During field interviews with local racers, we confirmed
               that Sri Lankan karting teams still rely on{" "}
-              <strong>manual pen-and-paper lap sheets</strong>.
-              High-end systems like AiM MyChron or Garmin Catalyst
-              remain cost-prohibitive for grassroots drivers.
+              <strong>manual pen and paper lap sheets</strong>.
+              High end systems like AiM MyChron or Garmin Catalyst
+              remain cost prohibitive for grassroots drivers.
             </p>
 
             <p className="about-details">
@@ -69,22 +69,6 @@ export function AboutSection() {
               personalized, evidence grounded AI coaching so every
               driver can find their competitive edge.
             </p>
-
-            <div className="about-stats">
-              <div className="about-stat">
-                <h3>
-                  100<span>Hz</span>
-                </h3>
-                <p>Motion & Sensor Acquisition Clock</p>
-              </div>
-
-              <div className="about-stat">
-                <h3 className="about-circuit-value">
-                  1,216<span>m</span>
-                </h3>
-                <p>SpeedBay Bandaragama International Circuit</p>
-              </div>
-            </div>
           </div>
 
           {/* Project vision */}
