@@ -183,7 +183,6 @@ export function Navbar() {
     { name: "Live Simulator", id: "telemetry-simulator" },
     { name: "Team", id: "team" },
     { name: "Contact", id: "contact" },
-    { name: "Footer", id: "footer" },
   ];
 
   return (
