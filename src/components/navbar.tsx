@@ -4,9 +4,9 @@ import "./navbar.css";
 
 export const NAV_SECTION_IDS = [
   "home",
-  "product",
   "about-us",
   "how-it-works",
+  "product",
   "ai-coaching",
   "telemetry-simulator",
   "team",
@@ -73,8 +73,14 @@ export function scrollToSection(sectionId: string) {
     if (elapsed < 1) {
       scrollAnimationFrame = window.requestAnimationFrame(animate);
     } else {
+      window.scrollTo({ top: targetTop, behavior: "auto" });
+      window.dispatchEvent(new CustomEvent("paddock:navigation", {
+        detail: { sectionId },
+      }));
+      window.setTimeout(() => {
+        if (navigationLockId === sectionId) navigationLockId = null;
+      }, 100);
       scrollAnimationFrame = null;
-      navigationLockId = null;
     }
   }
 
@@ -155,6 +161,7 @@ export function Navbar() {
 
   function navigateToSection(sectionId: string) {
     setMenuOpen(false);
+    setActiveSection(sectionId);
     scrollToSection(sectionId);
   }
 
@@ -171,9 +178,9 @@ export function Navbar() {
     { name: "Home", id: "home" },
     { name: "About Us", id: "about-us" },
     { name: "How It Works", id: "how-it-works" },
-    { name: "Live Simulator", id: "telemetry-simulator" },
     { name: "Product", id: "product" },
     { name: "AI Coaching", id: "ai-coaching" },
+    { name: "Live Simulator", id: "telemetry-simulator" },
     { name: "Team", id: "team" },
     { name: "Contact", id: "contact" },
     { name: "Footer", id: "footer" },
