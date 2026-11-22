@@ -7,7 +7,6 @@ export const TelemetrySimulator: React.FC = () => {
   const [gear, setGear] = useState<number>(4);
   const [throttle, setThrottle] = useState<number>(85);
   const [brake, setBrake] = useState<number>(0);
-  const [oilTemp, setOilTemp] = useState<number>(108);
   const [lapTime, setLapTime] = useState<number>(82.4);
   const [simTick, setSimTick] = useState<number>(0);
 
@@ -43,7 +42,6 @@ export const TelemetrySimulator: React.FC = () => {
         return Math.round(nextThrot);
       });
 
-      setOilTemp(() => Number((105 + Math.sin(simTick * 0.01) * 3 + Math.random() * 0.5).toFixed(1)));
       setLapTime((prev) => Number((prev + 0.1).toFixed(1)));
     }, 100);
 
@@ -153,8 +151,9 @@ export const TelemetrySimulator: React.FC = () => {
               </div>
             </div>
 
-            {/* Subsystems & Thermal */}
-            <div className="bg-[#f0edef] border border-[#171719]/10 rounded-2xl p-6 flex flex-col justify-between">
+           {/* Subsystems & Thermal */}
+            
+            {/* <div className="bg-[#f0edef] border border-[#171719]/10 rounded-2xl p-6 flex flex-col justify-between">
               <h4 className="text-sm font-mono font-bold uppercase text-[#171719] mb-4">Subsystem Telemetry</h4>
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-[#d9d9de]/50 p-4 rounded-xl border border-[#171719]/5">
@@ -168,9 +167,9 @@ export const TelemetrySimulator: React.FC = () => {
               </div>
               <div className="mt-4 pt-3 border-t border-[#171719]/10 flex items-center justify-between text-xs font-mono text-[#85858c]">
                 <span>ECU Connection: Stable</span>
-                <span className="text-emerald-700 font-bold">● OK</span>
+               <span className="text-emerald-700 font-bold">● OK</span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
