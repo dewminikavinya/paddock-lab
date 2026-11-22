@@ -7,7 +7,7 @@
   transform: translateX(-50%);
   z-index: 100;
   width: 94%;
-  max-width: 1040px;
+  max-width: 1280px;
 }
 
 .navbar-bar {
@@ -37,7 +37,7 @@
 }
 
 .navbar button:focus-visible {
-  outline: 3px solid #e63932;
+  outline: 3px solid #701820;
   outline-offset: 4px;
 }
 
@@ -53,12 +53,6 @@
   text-align: left;
 }
 
-.navbar-logo img {
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
-}
-
 .navbar-brand {
   display: flex;
   flex-direction: column;
@@ -69,7 +63,7 @@
 .labs-label {
   padding: 2px 5px;
   color: white;
-  background: #e63932;
+  background: #701820;
   border-radius: 4px;
   font-size: 9px;
 }
@@ -109,7 +103,6 @@
   gap: 8px;
 }
 
-.tokens-button,
 .contact-button,
 .menu-button {
   display: inline-flex;
@@ -121,26 +114,14 @@
   font-size: 12px !important;
 }
 
-.tokens-button {
-  color: #6b7280;
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
-}
-
-.tokens-button.active {
-  color: #e63932;
-  background: #fff0ef;
-  border-color: #e63932;
-}
-
 .contact-button {
   color: white;
-  background: #e63932;
-  border: 1px solid #e63932;
+  background: #701820;
+  border: 1px solid #701820;
 }
 
 .contact-button:hover {
-  background: #cc2f29;
+  background: #581218;
 }
 
 .menu-button {
@@ -151,12 +132,8 @@
   border: none;
 }
 
-.navbar-menu .mobile-tokens {
-  display: none;
-}
-
 /* Tablet and mobile layout */
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   .navbar-menu {
     display: none;
     position: absolute;
@@ -191,15 +168,7 @@
     padding: 10px 12px;
   }
 
-  .navbar-tagline,
-  .tokens-button {
-    display: none;
-  }
-
-  .navbar-menu .mobile-tokens {
-    display: block;
-    color: #e63932;
-  }
+  .navbar-tagline { display: none; }
 
   .contact-button {
     padding: 8px 10px;
@@ -213,10 +182,6 @@
     gap: 6px;
   }
 
-  .navbar-logo img {
-    width: 28px;
-    height: 28px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -224,3 +189,5 @@
     transition: none;
   }
 }
+.navbar-emblem { flex-shrink: 0; color: #701820; }
+.navbar-brand, .navbar-actions { flex-shrink: 0; }
