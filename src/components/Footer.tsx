@@ -1,4 +1,5 @@
 import React from 'react';
+import { scrollToSection } from './navbar';
 
 const currentYear = new Date().getFullYear();
 
@@ -26,10 +27,10 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-white mb-4">Navigation</h4>
             <ul className="space-y-2 text-sm text-[#85858c] font-mono">
-              <li><a href="#product" className="hover:text-white transition-colors">Product Specs</a></li>
-              <li><a href="#ai-coaching" className="hover:text-white transition-colors">AI Coaching</a></li>
-              <li><a href="#telemetry-simulator" className="hover:text-white transition-colors">Live Simulator</a></li>
-              <li><a href="#contact" className="hover:text-white transition-colors">Contact Engineering</a></li>
+              <li><a href="#product" onClick={(event) => { event.preventDefault(); scrollToSection("product"); }} className="hover:text-white transition-colors">Product Specs</a></li>
+              <li><a href="#ai-coaching" onClick={(event) => { event.preventDefault(); scrollToSection("ai-coaching"); }} className="hover:text-white transition-colors">AI Coaching</a></li>
+              <li><a href="#telemetry-simulator" onClick={(event) => { event.preventDefault(); scrollToSection("telemetry-simulator"); }} className="hover:text-white transition-colors">Live Simulator</a></li>
+              <li><a href="#contact" onClick={(event) => { event.preventDefault(); scrollToSection("contact"); }} className="hover:text-white transition-colors">Contact Engineering</a></li>
             </ul>
           </div>
 

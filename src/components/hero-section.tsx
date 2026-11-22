@@ -69,7 +69,7 @@ export function HeroSection({
           </div>
 
           {/* Project specifications */}
-          <dl id="product" aria-label="Product specifications" className="hero-stats">
+          <dl aria-label="Product specifications" className="hero-stats">
             <div>
               <dt>Acquisition Clock</dt>
               <dd>
