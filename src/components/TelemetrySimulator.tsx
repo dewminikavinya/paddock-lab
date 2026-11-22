@@ -42,7 +42,6 @@ export const TelemetrySimulator: React.FC = () => {
         return Math.round(nextThrot);
       });
 
-      setOilTemp(() => Number((105 + Math.sin(simTick * 0.01) * 3 + Math.random() * 0.5).toFixed(1)));
       setLapTime((prev) => Number((prev + 0.1).toFixed(1)));
     }, 100);
 
