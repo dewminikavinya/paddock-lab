@@ -75,9 +75,9 @@ export const ContactSection: React.FC = () => {
               <div className="w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">
                 ✓
               </div>
-              <h3 className="text-2xl font-bold mb-2 text-[#171719]">Demo Inquiry Completed</h3>
+              <h3 className="text-2xl font-bold mb-2 text-[#171719]">Inquiry Sent</h3>
               <p className="text-[#85858c] text-sm mb-6">
-                This is a local demonstration. Your inquiry has not been sent or stored.
+                Thank you. Your inquiry has been sent successfully.
               </p>
               <button
                 onClick={() => {
