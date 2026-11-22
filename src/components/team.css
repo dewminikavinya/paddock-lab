@@ -181,6 +181,18 @@
 
 .team-card-back-content h3 {
   color: #ffffff;
+  margin: 0 0 8px;
+}
+
+.team-card-ids {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.82);
+  font-family: monospace;
+  font-size: 11px;
+  line-height: 1.45;
 }
 
 .team-card-back-content .team-role {
