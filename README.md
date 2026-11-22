@@ -1,3 +1,4 @@
+
 # Paddock Labs
 
 A React + TypeScript landing page for kart telemetry and AI coaching.
